@@ -207,7 +207,8 @@ footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 2
 footer .fl{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;font-weight:600;color:var(--fg-2)}
 footer .fl a.em{color:var(--coral-600)}
 footer select{width:auto;font:inherit;font-size:12px;padding:6px 28px 6px 10px;border:1px solid var(--line-2);border-radius:2px;background:#fff;color:var(--fg)}
-footer .biz span{margin-right:12px;white-space:nowrap}
+footer .biz span{margin-right:12px;display:inline-block}
+footer .biz div{overflow-wrap:anywhere}
 footer .biz a{text-decoration:underline}
 footer .cp{margin-top:10px;color:var(--fg-4)}
 .flogo{margin-top:18px}.flogo svg{width:40px;height:28px;display:block}
@@ -366,8 +367,6 @@ footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
   .stats b{font-size:22px}
   .sec-h{flex-direction:column;align-items:flex-start;gap:10px}
   .sec-h h2{font-size:22px}
-  .grid .pd:last-child:nth-child(odd){grid-column:1/-1}
-  .grid .pd:last-child:nth-child(odd) .th{aspect-ratio:16/9}
   .ev{gap:12px}.ev a{min-height:112px;padding:20px 20px}.ev a b{font-size:17px;white-space:normal}.ev a::after{opacity:.45}
   #partner .grid{grid-template-columns:1fr 1fr;gap:12px}
   .board{gap:14px}.board>div{padding:20px 18px 14px}
@@ -916,7 +915,7 @@ footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
   <div class="wrap">
     <div class="row">
       <div class="fl">
-        <a href="../index.html#about">회사소개</a><a href="../terms.html">이용약관</a><a class="em" href="../privacy.html">개인정보처리방침</a><a href="../refund.html">환불규정</a><a href="../apply.html">제휴문의</a><a href="../index.html#cs">고객센터</a>
+        <a href="../terms.html">이용약관</a><a class="em" href="../privacy.html">개인정보처리방침</a><a href="../refund.html">환불규정</a><a href="../apply.html">제휴문의</a><a href="../index.html#cs">고객센터</a>
       </div>
     </div>
     <div class="flogo" aria-hidden="true"><svg viewBox="0 0 64 44"><path d="M8 12V26C8 33 13 36 18 36C23 36 27 33 27 26V22C27 29 31 36 37 36C43 36 46 32 46 26V16" fill="none" stroke="#969DA8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 17C44 11 39 8 34 9C38 12 42 13 46 17ZM46 17C48 11 53 8 58 9C54 12 50 13 46 17Z" fill="#969DA8"/></svg><b>웨일베이스</b></div>
