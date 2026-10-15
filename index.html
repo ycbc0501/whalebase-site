@@ -145,7 +145,26 @@ svg{display:block}
 .stats b small{font-size:14px;font-weight:700;margin-left:1px}
 .stats span{display:block;font-size:12px;color:var(--fg-3);margin-top:4px}
 .stats .src{font-size:11px;color:var(--fg-4);text-align:right}
-.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.hero0{padding-block:clamp(40px,6vw,72px) clamp(24px,4vw,40px)}
+.hero0 .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:900px){.hero0 .wrap{grid-template-columns:1fr}}
+.hero0 .eyebrow{display:inline-block;padding:7px 14px;border-radius:100px;background:var(--navy-50);color:var(--navy-500);font-size:13px;font-weight:800}
+.hero0 h1{font-size:clamp(32px,4.6vw,54px);font-weight:800;letter-spacing:-.05em;line-height:1.15;margin-top:18px;color:var(--navy-900);text-wrap:balance}
+.hero0 p{margin-top:18px;font-size:clamp(15px,1.4vw,18px);line-height:1.75;color:var(--fg-2);max-width:560px}
+.hero0 .ctas{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+.hero0 .ctas .bt{height:52px;padding:0 26px;font-size:16px}
+.hero0 .proof{margin-top:22px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--fg-3)}
+.hero0 .proof span{padding-left:18px;position:relative}
+.hero0 .proof span::before{content:"";position:absolute;left:0;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:var(--brand)}
+.flow0{display:grid;gap:12px;padding:22px;border-radius:var(--r-card);background:var(--navy-900);position:relative;overflow:hidden;isolation:isolate}
+.flow0::before{content:"";position:absolute;inset:0;background-image:var(--pat-grid-d);background-size:40px 40px;z-index:-1}
+.flow0 li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;background:#fff;border-radius:var(--r-el);padding:16px 18px;transition:transform .2s ease,box-shadow .2s ease}
+.flow0 li:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.flow0 b{width:44px;height:44px;border-radius:12px;background:var(--navy-50);color:var(--navy-500);display:grid;place-items:center;font-size:15px;font-weight:800}
+.flow0 strong{display:block;font-size:16px;font-weight:800;color:var(--navy-900)}
+.flow0 span{display:block;margin-top:4px;font-size:13px;line-height:1.6;color:var(--fg-2)}
+.bnr{padding-top:0}
+.how{display:none}
 @media (max-width:800px){.how{grid-template-columns:1fr}}
 .how>div{background:#fff;border:1px solid var(--line);border-radius:var(--r-el);padding:18px 20px;transition:transform .2s ease,box-shadow .2s ease}
 .how>div:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
@@ -484,17 +503,33 @@ footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
 
 <main id="top">
 
+<section class="hero0">
+  <div class="wrap">
+    <div class="l">
+      <span class="eyebrow">강사의 디지털 전환 파트너</span>
+      <h1>강의는 강사가,<br>제작과 유통은 웨일베이스가</h1>
+      <p>웨일베이스는 투자 강사를 온보딩해 디지털 강의를 제작하고, 멤버십과 파트너 플랫폼으로 유통한 뒤 수익을 나눕니다. 강사가 내는 비용은 없습니다.</p>
+      <div class="ctas"><a class="bt pri" href="#apply">제작 지원 신청</a><a class="bt" href="#about">웨일베이스 소개</a></div>
+      <div class="proof"><span>제작비 0원</span><span>매월 정산</span><span>저작권은 강사에게</span></div>
+    </div>
+    <ol class="flow0">
+      <li><b>01</b><div><strong>온보딩</strong><span>채널·저서·강의 경험을 보고 30분 미팅으로 포맷과 배분율을 정합니다.</span></div></li>
+      <li><b>02</b><div><strong>제작</strong><span>기획·촬영·편집·자막·썸네일·상세페이지를 웨일베이스가 전액 부담해 만듭니다.</span></div></li>
+      <li><b>03</b><div><strong>유통·정산</strong><span>멤버십과 파트너 플랫폼에 올리고, 매월 수강 리포트와 함께 수익을 나눕니다.</span></div></li>
+    </ol>
+  </div>
+</section>
+
 <section class="bnr">
   <div class="wrap">
     <div class="box">
       <div class="tr" id="tr">
-        <a class="sl b1" href="#apply"><div class="in"><span class="k">강사의 디지털 전환 파트너</span><h2>강의는 강사가,<br>제작과 유통은 웨일베이스가</h2><p>웨일베이스는 투자 강사를 온보딩해 디지털 강의를 제작하고, 멤버십과 파트너 플랫폼으로 유통한 뒤 수익을 나누는 회사입니다. 강사가 내는 비용은 없습니다.</p><span class="bt">제작 지원 신청</span></div></a>
+        <a class="sl b1" href="pricing.html"><div class="in"><span class="k">웨일베이스 멤버십</span><h2>마스터 7인의 강의 338개를<br>하나의 멤버십으로</h2><p>로그인 후 바로 수강. 월간·연간 중 결제 주기만 고르면 됩니다.</p><span class="bt">멤버십 알아보기</span></div></a>
+        <a class="sl b2" href="#apply"><div class="in"><span class="k">파트너 크리에이터 모집</span><h2>촬영은 한 번,<br>유통은 전 플랫폼</h2><p>첫 클래스 제작비 전액 지원. 편집·자막·상세페이지·정산까지 웨일베이스가 맡습니다.</p><span class="bt">지원 안내 보기</span></div></a>
+        <a class="sl b3" href="classes.html"><div class="in"><span class="k">마스터 7인</span><h2>전인구 · 박곰희 · 수페<br>한 곳에서 수강합니다</h2><p>채널마다 흩어진 강의를 웨일베이스가 한 곳에 모아 제작·정리합니다.</p><span class="bt">전체 강의 보기</span></div></a>
+        <a class="sl b4" href="#insights"><div class="in"><span class="k">미국주식, 어제 뭐 샀지?</span><h2>국내 투자자 순매수<br>미국주식 TOP 5</h2><p>한국예탁결제원 데이터로 확인하는 서학개미의 선택.</p><span class="bt">랭킹 보기</span></div></a>
       </div>
-    </div>
-    <div class="how">
-      <div><b>01 온보딩</b><span>채널·저서·강의 경험을 보고 30분 미팅으로 포맷과 배분율을 정합니다.</span></div>
-      <div><b>02 제작</b><span>기획·촬영·편집·자막·썸네일·상세페이지를 웨일베이스가 전액 부담해 만듭니다.</span></div>
-      <div><b>03 유통·정산</b><span>멤버십과 파트너 플랫폼에 올리고, 매월 수강 리포트와 함께 수익을 나눕니다.</span></div>
+      <div class="pg"><button type="button" id="bp" aria-label="이전"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button><span class="n" id="bn">1 / 4</span><button type="button" id="bx" aria-label="다음"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button></div>
     </div>
   </div>
 </section>
@@ -717,6 +752,19 @@ footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
 <a class="totop" href="#top" aria-label="맨 위로">TOP</a>
 
 <script>
+
+/* banner */
+(function(){
+  const tr=document.getElementById('tr'),n=tr.children.length,lab=document.getElementById('bn');let i=0,t;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const go=k=>{i=(k+n)%n;tr.scrollTo({left:tr.clientWidth*i,behavior:reduce?'auto':'smooth'});lab.textContent=`${i+1} / ${n}`;};
+  const auto=()=>{clearInterval(t);if(!reduce)t=setInterval(()=>go(i+1),6000);};
+  document.getElementById('bp').addEventListener('click',()=>{go(i-1);auto();});
+  document.getElementById('bx').addEventListener('click',()=>{go(i+1);auto();});
+  tr.addEventListener('mouseenter',()=>clearInterval(t));tr.addEventListener('mouseleave',auto);
+  addEventListener('resize',()=>tr.scrollTo({left:tr.clientWidth*i}));
+  auto();
+})();
 
 /* mobile nav */
 const mnav=document.getElementById('mnav');
