@@ -207,7 +207,9 @@ body{font-size:15px;line-height:1.55}
 .search:focus-within{box-shadow:0 0 0 2px var(--navy-100)}
 .gnb a{font-size:16px;font-weight:700;color:var(--fg-2);padding:10px 14px;border-radius:var(--r-pill);transition:var(--ease)}
 .gnb a:hover{background:var(--n-50);color:var(--fg)}
-.gnb a.hot{color:var(--coral-600);background:var(--coral-100)}
+.gnb a.pill-o{border:1px solid var(--n-200);background:#fff}
+.gnb a.pill-f{background:var(--n-900);color:#fff}
+.gnb a.pill-f:hover{background:var(--brand);color:#fff}
 .cats{border-top:0;border-bottom:1px solid var(--line)}
 .cats .wrap{display:flex;align-items:center;gap:16px}
 .cats ul{gap:8px;padding-block:12px;flex:1;min-width:0}
@@ -762,7 +764,7 @@ footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
       <a href="index.html#partner">파트너 콘텐츠</a>
       <a href="index.html#insights">인사이트</a>
       <a href="index.html#about">소개</a>
-      <a href="index.html#apply" class="hot">크리에이터 모집</a>
+      <a href="login.html" class="pill-o">로그인</a><a href="index.html#apply" class="pill-f">제작 지원 신청</a>
     </nav>
     <button class="ham" type="button" id="ham" aria-label="메뉴"><svg><use href="#i-menu"/></svg></button>
   </div>
