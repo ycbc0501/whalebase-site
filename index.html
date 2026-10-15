@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>웨일베이스 Whalebase</title>
+<meta name="description" content="웨일베이스 - 국내 투자 전문가들의 강의를 멤버십 하나로. 미국주식·ETF·연금·재무제표 강의와 마스터 인사이트.">
+<meta property="og:title" content="웨일베이스 | 실전 투자 클래스 플랫폼">
+<meta property="og:description" content="최전선의 투자 전문가에게 배우는 미국주식·재테크 클래스">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231E5BFF%22/%3E%3Cg transform=%22translate%285 12%29 scale%28.85%29%22%3E%3Cpath d=%22M8 12V26C8 33 13 36 18 36C23 36 27 33 27 26V22C27 29 31 36 37 36C43 36 46 32 46 26V16%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%227%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M46 17C44 11 39 8 34 9C38 12 42 13 46 17ZM46 17C48 11 53 8 58 9C54 12 50 13 46 17Z%22 fill=%22%23fff%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: dense Korean class-marketplace (ref. 삼쩜삼캠퍼스/클래스101): flat white, 1200px, hairline dividers, 14px body, left-aligned section titles with 전체보기, 4-up product grids, category tab bar, 공지/FAQ/고객센터, dense 사업자정보 footer. Light only. */
+:root{
+  /* ── Whalebase color system (see ../CONSTITUTION.md) ── */
+  /* key: Deep Sea navy */
+  --brand:#1E5BFF; --navy-900:#061F4D; --navy-700:#0A3D91; --navy-500:#1557D6; --navy-100:#E9F2FF; --navy-50:#F3F8FF;
+  /* accent: Coral — promotions, badges, urgency only */
+  --coral-500:#FF5A3C; --coral-600:#E6462A; --coral-100:#FFE9E3;
+  /* secondary: Sea Foam — free, success, positive states */
+  --mint-500:#1FB6A6; --mint-600:#179A8C; --mint-100:#E3F7F4;
+  /* neutrals (cool) */
+  --n-900:#141618; --n-700:#2B2F34; --n-500:#606A76; --n-400:#949DA8; --n-200:#DFE2E5; --n-100:#F0F1F2; --n-50:#F5F6F8; --n-0:#FFFFFF;
+  /* semantic */
+  --up:#E5332A; --down:#1557D6; --warn:#F2A900;
+  --pat-grid-d:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  --pat-grid-l:linear-gradient(rgba(10,61,145,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(10,61,145,.09) 1px,transparent 1px);
+  /* aliases used by components */
+  --bg:var(--n-0); --bg-2:var(--n-50); --bg-3:var(--n-100); --line:#EEF0F2; --line-2:var(--n-200);
+  /* shapes (values measured from the reference stylesheet) */
+  --r-card:16px; --r-el:12px; --r-sm:8px; --r-pill:100px;
+  --shadow:0 3px 15px 0 rgba(18,21,25,.08); --shadow-lg:0 8px 24px rgba(0,0,0,.12); --ease:all .2s;
+  --fg:var(--n-900); --fg-2:var(--n-700); --fg-3:var(--n-500); --fg-4:var(--n-400);
+  --blue:var(--navy-700); --blue-2:var(--navy-500); --blue-bg:var(--navy-100);
+  --red:var(--coral-500); --red-bg:var(--coral-100); --orange:var(--coral-500); --green:var(--mint-500);
+  --font:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;font-weight:700;line-height:1.3}
+p{margin:0}ul{margin:0;padding:0;list-style:none}
+button{font-family:inherit}
+svg{display:block}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:clamp(16px,2.5vw,24px)}
+.sec{padding-block:36px}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
+.sec-h h2{font-size:20px;letter-spacing:-.02em}
+.sec-h h2 small{display:block;font-size:13px;font-weight:400;color:var(--fg-3);margin-top:2px}
+.sec-h .more{font-size:13px;color:var(--fg-3);white-space:nowrap}
+.sec-h .more:hover{color:var(--fg);text-decoration:underline}
+.bt{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border:1px solid var(--line-2);background:#fff;font-size:14px;font-weight:600;border-radius:4px;cursor:pointer;color:var(--fg)}
+.bt.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.bt.pri:hover{background:var(--blue-2)}
+.bt.blk{background:var(--navy-900);border-color:var(--navy-900);color:#fff}
+.bt.sm{height:32px;padding:0 12px;font-size:13px}
+.tag{display:inline-block;font-size:11px;font-weight:700;line-height:18px;padding:0 5px;border-radius:2px;vertical-align:middle}
+.tag.red{background:var(--coral-500);color:#fff}.tag.blue{background:var(--navy-700);color:#fff}.tag.grey{background:var(--bg-3);color:var(--fg-3)}.tag.line{border:1px solid var(--line-2);color:var(--fg-3)}.tag.org{background:var(--coral-500);color:#fff}.tag.grn{background:var(--mint-500);color:#fff}
+:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+
+/* util */
+.util{border-bottom:1px solid var(--line);font-size:12px;color:var(--fg-3)}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;height:32px}
+.util .r{display:flex;gap:14px}
+.util .r a:hover{color:var(--fg)}
+.util b{color:var(--coral-500);font-weight:600}
+@media (max-width:640px){.util .l{display:none}.util .wrap{justify-content:flex-end}}
+
+/* header */
+.hd .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.logo{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.logo .mk{width:44px;height:30px;flex:none;color:var(--brand)}
+.logo .wm{height:30px;width:auto;color:var(--brand);display:block}
+.search{flex:1;max-width:420px;display:flex;border:2px solid var(--navy-700);height:42px}
+.search input{flex:1;border:0;padding:0 12px;font:inherit;font-size:14px;min-width:0;outline:none;background:#fff;color:var(--fg)}
+.search button{width:44px;border:0;background:#fff;cursor:pointer;display:grid;place-items:center;color:var(--fg)}
+.search svg{width:20px;height:20px}
+.gnb{display:flex;gap:26px;margin-left:auto;font-size:15px;font-weight:600;white-space:nowrap}
+.gnb a:hover{color:var(--blue)}
+.gnb a.hot{color:var(--coral-600)}
+.ham{display:none;margin-left:auto;width:40px;height:40px;border:0;background:none;cursor:pointer;padding:8px}
+.ham svg{width:24px;height:24px}
+@media (max-width:900px){.gnb{display:none}.ham{display:block}.hd .wrap{gap:14px;height:60px}.search{max-width:none}}
+@media (max-width:560px){.search{display:none}}
+.mnav{display:none;position:fixed;inset:0;z-index:60;background:#fff;padding:16px;overflow:auto}
+.mnav.open{display:block}
+.mnav .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.mnav .top button{border:0;background:none;font-size:22px;cursor:pointer}
+.mnav a{display:block;padding:14px 4px;border-bottom:1px solid var(--line);font-size:16px;font-weight:600}
+.mnav .sub{font-size:14px;font-weight:400;color:var(--fg-3);padding-left:16px}
+
+/* category bar */
+.cats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:30}
+.cats ul{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.cats ul::-webkit-scrollbar{display:none}
+.cats button{border:0;background:none;padding:0 12px;height:46px;font-size:14px;font-weight:500;color:var(--fg-3);cursor:pointer;position:relative}
+.cats button[aria-pressed="true"]{color:var(--fg);font-weight:700}
+.cats button[aria-pressed="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--navy-700)}
+
+/* banner */
+.bnr{padding-top:20px}
+.bnr .box{position:relative;overflow:hidden;border-radius:6px}
+.bnr .tr{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.bnr .tr::-webkit-scrollbar{display:none}
+.sl{flex:0 0 100%;scroll-snap-align:start;height:clamp(220px,28vw,320px);display:flex;align-items:center;padding:0 clamp(24px,5vw,64px);color:#fff;min-width:0}
+.sl .in{display:grid;gap:8px;max-width:600px}
+.sl .k{font-size:13px;font-weight:600;opacity:.9}
+.sl h2{font-size:clamp(22px,3.2vw,34px);font-weight:800;line-height:1.25;letter-spacing:-.03em}
+.sl p{font-size:clamp(13px,1.3vw,15px);opacity:.92}
+.sl .bt{margin-top:6px;width:max-content;height:38px;border-radius:2px;font-size:13px}
+.sl{position:relative;overflow:hidden;isolation:isolate}.sl .in{position:relative;z-index:2}
+.sl::before,.sl::after{content:"";position:absolute;pointer-events:none}
+.sl::before{inset:0;background-image:var(--pat-grid-d);background-size:40px 40px;z-index:0}
+.sl::after{z-index:1;right:0;bottom:0;width:min(52%,560px);height:100%;background-repeat:no-repeat;background-position:right bottom;background-size:contain}
+.b1{background:var(--navy-900)}.b1::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 200%22%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18V200H0Z%22 fill=%22%231557D6%22 fill-opacity=%22.28%22/%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.75%22 stroke-width=%222.5%22/%3E%3Ccircle cx=%22600%22 cy=%2218%22 r=%225%22 fill=%22%23FF5A3C%22/%3E%3C/svg%3E")}
+.b2{background:var(--navy-700)}.b2::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 464 200%22%3E%3Cg fill=%22%23061F4D%22%3E%3Crect x=%220%22 y=%22120%22 width=%2244%22 height=%2280%22/%3E%3Crect x=%2260%22 y=%2296%22 width=%2244%22 height=%22104%22/%3E%3Crect x=%22120%22 y=%22108%22 width=%2244%22 height=%2292%22/%3E%3Crect x=%22180%22 y=%2272%22 width=%2244%22 height=%22128%22/%3E%3Crect x=%22240%22 y=%2284%22 width=%2244%22 height=%22116%22/%3E%3Crect x=%22300%22 y=%2248%22 width=%2244%22 height=%22152%22/%3E%3Crect x=%22360%22 y=%2260%22 width=%2244%22 height=%22140%22/%3E%3Crect x=%22420%22 y=%2224%22 width=%2244%22 height=%22176%22/%3E%3C/g%3E%3Cg fill=%22%23fff%22 fill-opacity=%22.55%22%3E%3Crect x=%220%22 y=%22120%22 width=%2244%22 height=%223%22/%3E%3Crect x=%2260%22 y=%2296%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22120%22 y=%22108%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22180%22 y=%2272%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22240%22 y=%2284%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22300%22 y=%2248%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22360%22 y=%2260%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22420%22 y=%2224%22 width=%2244%22 height=%223%22/%3E%3C/g%3E%3C/svg%3E");opacity:.9}
+.b3{background:var(--navy-50);color:var(--navy-900)}.b3::before{background-image:var(--pat-grid-l)}.b3::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 200%22%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18V200H0Z%22 fill=%22%23CFE0FF%22 fill-opacity=%22.9%22/%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18%22 fill=%22none%22 stroke=%22%230A3D91%22 stroke-width=%222.5%22/%3E%3Ccircle cx=%22600%22 cy=%2218%22 r=%225%22 fill=%22%23FF5A3C%22/%3E%3C/svg%3E")}
+.b4{background:var(--navy-900)}.b4::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Cpath d=%22M16 29C15.2 22 12 17 3.6 12.4C2 11.5 2.5 9 4.4 9.2C9.6 9.8 13.6 12.4 16 16.6C18.4 12.4 22.4 9.8 27.6 9.2C29.5 9 30 11.5 28.4 12.4C20 17 16.8 22 16 29Z%22 fill=%22%231557D6%22 fill-opacity=%22.45%22/%3E%3C/svg%3E");width:min(40%,380px);height:120%;bottom:-18%;right:2%}
+@media (max-width:720px){.sl::after{opacity:.35}}
+.b4 .bt{background:var(--navy-700);border-color:var(--navy-700);color:#fff}
+.b3 .bt{color:var(--coral-600)}
+.bnr .pg{position:absolute;right:16px;bottom:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.45);color:#fff;border-radius:999px;padding:3px 6px;font-size:12px}
+.bnr .pg button{border:0;background:none;color:#fff;cursor:pointer;width:22px;height:22px;display:grid;place-items:center;padding:0}
+.bnr .pg svg{width:14px;height:14px}
+.bnr .pg .n{min-width:36px;text-align:center;font-variant-numeric:tabular-nums}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+@media (max-width:720px){.quick{grid-template-columns:repeat(2,1fr)}}
+.quick a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:var(--bg-2);border-radius:4px;font-size:13px;font-weight:600}
+.quick a span{color:var(--fg-3);font-weight:400;font-size:12px}
+.quick a:hover{background:var(--bg-3)}
+
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:16px;align-items:center;padding-block:18px}
+@media (max-width:900px){.stats .wrap{grid-template-columns:1fr 1fr}.stats .src{grid-column:1/-1;text-align:left}}
+.stats b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--navy-900);line-height:1.1;font-variant-numeric:tabular-nums}
+.stats b small{font-size:14px;font-weight:700;margin-left:1px}
+.stats span{display:block;font-size:12px;color:var(--fg-3);margin-top:4px}
+.stats .src{font-size:11px;color:var(--fg-4);text-align:right}
+/* product grid */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 16px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:18px 12px}}
+.pd{display:block;min-width:0}
+.pd[hidden]{display:none}
+.th{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;color:#fff}
+.th .lb{position:absolute;top:10px;left:10px;display:flex;gap:4px}
+.th .tt{font-size:clamp(15px,1.5vw,19px);font-weight:800;line-height:1.25;letter-spacing:-.03em;text-wrap:balance}
+.th .ss{font-size:12px;opacity:.85;margin-top:4px}
+.th .gi{position:absolute;right:10px;bottom:10px;font-size:11px;font-weight:700;background:rgba(255,255,255,.18);padding:2px 6px;border-radius:2px}
+.th.img{padding:0;background:#e9ebee}
+.th.img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th.img .lb{z-index:1}
+.th .dur{position:absolute;right:8px;bottom:8px;font-size:11px;font-weight:700;background:rgba(0,0,0,.8);color:#fff;padding:2px 5px;border-radius:2px;font-variant-numeric:tabular-nums}
+.th.av{display:grid;place-items:center;padding:0}
+.th.av img{width:42%;aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.9)}
+.th.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pd .ms .ch{color:var(--fg-2);font-weight:600}
+.th.dim::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.th.dim .soon{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font-weight:700;font-size:14px;letter-spacing:0}
+.pd .bd{padding-top:10px}
+.pd .cat{font-size:12px;color:var(--fg-3)}
+.pd h3{font-size:14px;font-weight:600;line-height:1.4;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pd .th img{transition:transform .35s ease}
+.pd:hover .th img{transform:scale(1.03)}
+.pd:hover h3{color:var(--navy-700)}
+.pd .th{border:1px solid var(--line)}
+.pd .ms{font-size:12px;color:var(--fg-3);margin-top:4px}
+.pd .pr{margin-top:6px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.pd .pr .dc{color:var(--coral-600);font-weight:800;font-size:15px}
+.pd .pr .pp{font-weight:800;font-size:15px}
+.pd .pr .pp small{font-weight:600;font-size:12px}
+.pd .pr .og{color:var(--fg-4);text-decoration:line-through;font-size:12px}
+.pd .pr .tbd{font-size:13px;color:var(--fg-3)}
+.pd .meta{margin-top:6px;display:flex;gap:4px;flex-wrap:wrap}
+.empty{padding:40px 0;text-align:center;color:var(--fg-3);font-size:14px}
+
+/* event banners */
+.ev{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:720px){.ev{grid-template-columns:1fr}}
+.ev a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 24px;border-radius:6px;min-height:120px;color:#fff;position:relative;overflow:hidden;isolation:isolate}.ev a>*{position:relative;z-index:1}.ev a::before{content:"";position:absolute;inset:0;background-image:var(--pat-grid-d);background-size:32px 32px}.ev a::after{content:"";position:absolute;right:0;bottom:0;width:46%;height:100%;background:no-repeat right bottom/contain}
+.ev a b{display:block;font-size:18px;font-weight:800;letter-spacing:-.02em}
+.ev a span{display:block;font-size:13px;opacity:.9;margin-top:4px}
+.ev a em{font-style:normal;font-size:12px;background:rgba(255,255,255,.2);padding:4px 8px;border-radius:2px;white-space:nowrap}
+.ev .e1{background:var(--navy-50);color:var(--navy-900);border-left:4px solid var(--coral-500)}.ev .e1::before{background-image:var(--pat-grid-l)}.ev .e1::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 200%22%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18V200H0Z%22 fill=%22%23CFE0FF%22 fill-opacity=%22.9%22/%3E%3Cpath d=%22M0 150L70 128 140 136 210 104 280 112 350 70 420 84 490 40 560 52 600 18%22 fill=%22none%22 stroke=%22%230A3D91%22 stroke-width=%222.5%22/%3E%3Ccircle cx=%22600%22 cy=%2218%22 r=%225%22 fill=%22%23FF5A3C%22/%3E%3C/svg%3E");opacity:.8}.ev .e1 em{background:var(--coral-100);color:var(--coral-600)}.ev .e1 span{opacity:.75}
+.ev .e2{background:var(--navy-900)}.ev .e2::after{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 464 200%22%3E%3Cg fill=%22%231557D6%22%3E%3Crect x=%220%22 y=%22120%22 width=%2244%22 height=%2280%22/%3E%3Crect x=%2260%22 y=%2296%22 width=%2244%22 height=%22104%22/%3E%3Crect x=%22120%22 y=%22108%22 width=%2244%22 height=%2292%22/%3E%3Crect x=%22180%22 y=%2272%22 width=%2244%22 height=%22128%22/%3E%3Crect x=%22240%22 y=%2284%22 width=%2244%22 height=%22116%22/%3E%3Crect x=%22300%22 y=%2248%22 width=%2244%22 height=%22152%22/%3E%3Crect x=%22360%22 y=%2260%22 width=%2244%22 height=%22140%22/%3E%3Crect x=%22420%22 y=%2224%22 width=%2244%22 height=%22176%22/%3E%3C/g%3E%3Cg fill=%22%23fff%22 fill-opacity=%22.55%22%3E%3Crect x=%220%22 y=%22120%22 width=%2244%22 height=%223%22/%3E%3Crect x=%2260%22 y=%2296%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22120%22 y=%22108%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22180%22 y=%2272%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22240%22 y=%2284%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22300%22 y=%2248%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22360%22 y=%2260%22 width=%2244%22 height=%223%22/%3E%3Crect x=%22420%22 y=%2224%22 width=%2244%22 height=%223%22/%3E%3C/g%3E%3C/svg%3E");opacity:.55}
+
+/* masters */
+
+/* three-col board */
+.board{display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
+@media (max-width:1000px){.board{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.board{grid-template-columns:1fr}}
+.board h2{font-size:17px;display:flex;justify-content:space-between;align-items:baseline;padding-bottom:10px;border-bottom:2px solid var(--navy-700)}
+.board h2 a{font-size:12px;font-weight:400;color:var(--fg-3)}
+.list li{border-bottom:1px solid var(--line)}
+.list a{display:flex;justify-content:space-between;gap:12px;padding:10px 2px;align-items:baseline;min-width:0}
+.list .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.list .t b{color:var(--blue);font-weight:600;font-size:12px;margin-right:6px}
+.list .d{font-size:12px;color:var(--fg-4);white-space:nowrap;font-variant-numeric:tabular-nums}
+.list a:hover .t{text-decoration:underline}
+.rk{width:100%;border-collapse:collapse;font-size:13px}
+.rk td{padding:9px 2px;border-bottom:1px solid var(--line);vertical-align:middle}
+.rk .n{width:26px;font-weight:800;color:var(--blue)}
+.rk .tk b{display:block;font-weight:700}
+.rk .tk small{color:var(--fg-3);font-size:11px}
+.rk .a{text-align:right;color:var(--red);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rk-ft{font-size:11px;color:var(--fg-4);margin-top:8px}
+
+/* faq + cs */
+.faqcs{display:grid;grid-template-columns:1.6fr 1fr;gap:32px}
+@media (max-width:900px){.faqcs{grid-template-columns:1fr}}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;padding:13px 2px;font-size:14px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--fg-4);font-weight:400}
+details[open] summary::after{content:"–"}
+details .a{padding:0 2px 14px;font-size:13px;color:var(--fg-2);line-height:1.6}
+.cs{background:var(--bg-2);padding:22px;border-radius:4px}
+.cs h3{font-size:15px;margin-bottom:10px}
+.cs .big{font-size:22px;font-weight:800;letter-spacing:-.02em;word-break:break-all}
+.cs dl{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;margin:12px 0 0}
+.cs dt{color:var(--fg-3)}.cs dd{margin:0;font-weight:500}
+.cs .bts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+
+/* about + apply */
+.about{background:var(--n-0);border-top:1px solid var(--line);padding-block:64px 72px}
+.ab-head{text-align:center;margin-bottom:48px}
+.ab-head .k{font-size:15px;color:var(--fg-3)}
+.ab-head h2{font-size:28px;font-weight:800;letter-spacing:-.03em;color:var(--navy-700);margin-top:6px}
+.ab-list{display:grid;gap:44px;max-width:860px;margin:0 auto}
+.ab-item{display:grid;grid-template-columns:104px 1fr;gap:28px;align-items:start}
+@media (max-width:640px){.ab-item{grid-template-columns:1fr;gap:14px}}
+.ab-item .ico{width:104px;height:104px;border-radius:50%;background:var(--navy-50);display:grid;place-items:center}
+.ab-item .ico svg{width:56px;height:56px}
+.ab-item h3{font-size:21px;font-weight:800;line-height:1.35;letter-spacing:-.025em;color:var(--n-900)}
+.ab-item p{margin-top:10px;font-size:14px;color:var(--fg-2);line-height:1.85}
+.ab-item p b{color:var(--navy-700)}
+.ab-inv{text-align:center;margin-top:56px;padding:40px 20px;background:var(--navy-900);color:#fff;border-radius:6px}
+.ab-inv .k{font-size:14px;opacity:.8}
+.ab-inv h3{font-size:24px;font-weight:800;margin-top:6px;letter-spacing:-.02em}
+.ab-inv .bts{display:flex;gap:8px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.ab-inv .bt{background:#fff;border-color:#fff;color:var(--navy-700)}
+.ab-inv .bt.cor{background:var(--coral-500);border-color:var(--coral-500);color:#fff}
+.apply{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media (max-width:820px){.apply{grid-template-columns:1fr}}
+.apply h2{font-size:20px}
+.apply ol{margin:14px 0 0;padding-left:0;list-style:none;display:grid;gap:0;counter-reset:s}
+.apply ol li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.apply ol li::before{counter-increment:s;content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;background:var(--navy-700);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+.apply ol li span{color:var(--fg-3);font-size:13px;display:block;margin-top:2px}
+/* scoped to the contact form only: a bare `form`/`input` selector also hits the header search box */
+.apply form{display:grid;gap:10px;border:1px solid var(--line-2);padding:22px;border-radius:4px}
+.apply form h3{font-size:15px;margin-bottom:4px}
+.apply label{display:grid;gap:5px;font-size:12px;font-weight:600;color:var(--fg-3)}
+.apply input,.apply textarea,.apply select{font:inherit;font-size:14px;padding:10px 11px;border:1px solid var(--line-2);border-radius:3px;background:#fff;color:var(--fg);width:100%}
+.apply input:focus,.apply textarea:focus,.apply select:focus{outline:none;border-color:var(--navy-700)}
+.apply textarea{min-height:100px;resize:vertical}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--fg-3);font-weight:400}
+.chk input{width:auto;margin-top:2px}
+.apply label.chk{display:flex;flex-direction:row;align-items:flex-start;gap:10px;font-size:13px;line-height:1.6;margin-top:4px}
+.apply label.chk input{width:18px;height:18px;flex:none;margin:2px 0 0;accent-color:var(--navy-500)}
+.apply select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23606A76' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:40px}
+.note{font-size:12px;color:var(--fg-4)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:28px 0 100px;font-size:12px;color:var(--fg-3);line-height:1.8}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;margin-bottom:14px}
+footer .fl{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;font-weight:600;color:var(--fg-2)}
+footer .fl a.em{color:var(--coral-600)}
+footer select{width:auto;font:inherit;font-size:12px;padding:6px 28px 6px 10px;border:1px solid var(--line-2);border-radius:2px;background:#fff;color:var(--fg)}
+footer .biz span{margin-right:12px;white-space:nowrap}
+footer .biz a{text-decoration:underline}
+footer .cp{margin-top:10px;color:var(--fg-4)}
+.flogo{margin-top:18px}.flogo svg{width:40px;height:28px;display:block}
+footer .sns{display:flex;gap:8px;margin-top:10px}
+footer .sns a{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;color:var(--fg-3)}
+footer .sns svg{width:15px;height:15px}
+
+/* float */
+.fl-k{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--navy-700);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;text-align:center;line-height:1}
+.fl-k svg{width:20px;height:20px;margin-bottom:2px}
+.totop{position:fixed;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:40;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--fg-3);font-size:11px;font-weight:700}
+
+/* ===== skin: education-platform look (radii, shadows, pills, spacing measured from the reference) ===== */
+body{font-size:15px;line-height:1.55}
+.sec{padding-block:64px}
+.sec-h{margin-bottom:24px;align-items:flex-end}
+.sec-h h2{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.3}
+.sec-h h2 small{font-size:15px;margin-top:6px;color:var(--fg-3)}
+.sec-h .more{font-size:14px;font-weight:600;color:var(--navy-500);padding:8px 14px;border-radius:var(--r-pill);background:var(--navy-50);transition:var(--ease)}
+.sec-h .more:hover{background:var(--navy-100);text-decoration:none}
+.bt{height:48px;padding:0 22px;border-radius:var(--r-pill);font-size:15px;font-weight:700;border:1px solid var(--n-200);background:#fff;color:var(--fg);transition:var(--ease)}
+.bt:hover{border-color:var(--navy-500);color:var(--navy-500)}
+.bt.pri{background:var(--navy-500);border-color:var(--navy-500);color:#fff}
+.bt.pri:hover{background:var(--navy-700);border-color:var(--navy-700);color:#fff}
+.bt.sm{height:38px;padding:0 16px;font-size:13px}
+.tag{border-radius:var(--r-pill);padding:0 8px;line-height:20px;font-size:11px}
+.tag.line{background:var(--n-50);border-color:transparent;color:var(--fg-3)}
+.tag.grey{background:rgba(20,22,24,.72);color:#fff}
+.util{background:var(--n-50);border-bottom:0}
+.util .wrap{height:36px}
+.hd .wrap{height:80px;gap:36px}
+.logo .mk{width:44px;height:30px;color:var(--brand)}
+.logo .wm{height:30px}
+.search{border:0;background:var(--n-50);border-radius:var(--r-pill);height:48px;overflow:hidden}
+.search input{background:transparent;border:0;height:48px;padding:0 20px;font-size:15px}
+.search button{background:transparent;border:0;width:48px}
+.search:focus-within{box-shadow:0 0 0 2px var(--navy-100)}
+.gnb a{font-size:16px;font-weight:700;color:var(--fg-2);padding:10px 14px;border-radius:var(--r-pill);transition:var(--ease)}
+.gnb a:hover{background:var(--n-50);color:var(--fg)}
+.gnb a.hot{color:var(--coral-600);background:var(--coral-100)}
+.cats{border-top:0;border-bottom:1px solid var(--line)}
+.cats .wrap{display:flex;align-items:center;gap:16px}
+.cats ul{gap:8px;padding-block:12px;flex:1;min-width:0}
+.cats .all{flex:none;font-size:14px;font-weight:700;color:var(--navy-500);padding:10px 16px;border-radius:var(--r-pill);background:var(--navy-50);white-space:nowrap}
+.cats .all:hover{background:var(--navy-100)}
+.cats button{height:40px;padding:0 18px;border-radius:var(--r-pill);background:var(--n-50);color:var(--fg-2);font-size:15px;font-weight:600;transition:var(--ease);border:0}
+.cats button:hover{background:var(--n-100)}
+.cats button[aria-pressed="true"]{background:var(--n-900);color:#fff}
+.cats button[aria-pressed="true"]::after{display:none}
+.bnr{padding-top:24px}
+.bnr .box{border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow)}
+.sl{height:clamp(240px,30vw,360px);padding:0 clamp(28px,5vw,72px)}
+.sl .k{font-size:14px;font-weight:700;opacity:.85}
+.sl h2{font-size:clamp(24px,3.4vw,38px);line-height:1.22}
+.sl p{font-size:clamp(14px,1.3vw,16px);margin-top:4px}
+.sl .bt{height:48px;border-radius:var(--r-pill);padding:0 24px;font-size:15px;margin-top:10px;border:0}
+.bnr .pg{border-radius:var(--r-pill);background:rgba(0,0,0,.35);backdrop-filter:blur(6px);padding:0 6px;height:34px}
+.quick{gap:12px;margin-top:16px}
+.quick a{height:56px;border-radius:var(--r-el);background:#fff;border:1px solid var(--line);font-size:15px;font-weight:600;padding:0 18px;transition:var(--ease);box-shadow:none}
+.quick a:hover{border-color:var(--navy-500);color:var(--navy-500);box-shadow:var(--shadow)}
+.board>div,.stats .wrap>div:not(.src),.cs,.apply form{transition:transform .2s ease,box-shadow .2s ease}
+.board>div:hover,.stats .wrap>div:not(.src):hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.list a,.ab-item,.sec-h .more,.cats button,.bt,.tag{transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease,border-color .2s ease}
+.bt:hover{transform:translateY(-1px)}
+.stats{background:var(--n-50);border:0;margin-top:48px}
+.stats .wrap{grid-template-columns:repeat(4,1fr);gap:16px;padding-block:40px;align-items:stretch}
+.stats .wrap>div:not(.src){background:#fff;border-radius:var(--r-card);padding:22px 24px;box-shadow:var(--shadow);position:relative;padding-left:76px;min-height:96px;display:flex;flex-direction:column;justify-content:center}
+.stats .wrap>div:not(.src)::before{content:"";position:absolute;left:22px;top:50%;width:40px;height:40px;margin-top:-20px;border-radius:50%;background:var(--navy-50) center/22px no-repeat}
+.stats .wrap>div:nth-child(1)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231557D6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='14' rx='2'/%3E%3Cpath d='m10 9 5 3-5 3z' fill='%231557D6' stroke='none'/%3E%3C/svg%3E")}
+.stats .wrap>div:nth-child(2)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231557D6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E")}
+.stats .wrap>div:nth-child(3)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231557D6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a8 8 0 0 1-8 8H8l-5 3 1.5-4.5A8 8 0 1 1 21 12z'/%3E%3C/svg%3E")}
+.stats .wrap>div:nth-child(4)::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231557D6' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.5'/%3E%3Cpath d='M2.5 20a6.5 6.5 0 0 1 13 0'/%3E%3Ccircle cx='17' cy='9' r='2.5'/%3E%3Cpath d='M15.5 14.2A5 5 0 0 1 21.5 19'/%3E%3C/svg%3E")}
+.stats b{font-size:28px}
+.stats span{font-size:13px}
+.stats .src{grid-column:1/-1;text-align:right;margin-top:-4px}
+@media (max-width:900px){.stats .wrap{grid-template-columns:1fr 1fr;gap:12px;padding-block:28px}}
+@media (max-width:520px){.stats .wrap{grid-template-columns:1fr}}
+.grid{gap:28px 20px}
+#partner .grid{grid-template-columns:repeat(3,1fr);gap:20px}
+#partner .pd .th{aspect-ratio:16/9}
+@media (max-width:720px){#partner .grid{grid-template-columns:1fr 1fr}}
+.th.cv{border:1px solid var(--line) !important;background:#fff !important;display:grid !important;place-items:center;justify-content:center !important;align-content:center !important;padding:0 !important}
+.th.cv img{position:static !important;width:64% !important;height:auto !important;max-height:52% !important;object-fit:contain !important;padding:0 !important;background:#fff}
+.th.cv.full img{width:100% !important;height:100% !important;max-height:none !important;object-fit:cover !important}
+.th.cv.txt{font-weight:900;font-size:clamp(26px,2.8vw,36px);letter-spacing:-.04em}
+.pd .th{border-radius:var(--r-el);border:0;box-shadow:0 1px 0 rgba(20,22,24,.06)}
+.pd{transition:transform .2s ease,box-shadow .2s ease}
+.pd:hover{transform:translateY(-4px)}
+.pd:hover .th{box-shadow:var(--shadow-lg)}
+.pd:hover .th img{transform:none}
+.pd .bd{padding-top:12px}
+.pd .cat{font-size:13px}
+.pd h3{font-size:16px;font-weight:700;margin-top:4px}
+.pd .ms{font-size:13px;margin-top:5px}
+.th .lb{top:12px;left:12px}
+.th .dur{right:10px;bottom:10px;border-radius:var(--r-sm);padding:3px 7px}
+.ev{gap:20px}
+.ev a{border-radius:var(--r-card);min-height:140px;padding:28px 32px;box-shadow:var(--shadow);transition:var(--ease)}
+.ev a:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.ev a b{font-size:20px;white-space:nowrap}
+.ev a>div{min-width:0}
+@media (max-width:420px){.ev a b{font-size:17px}}
+.ev a span{font-size:14px;margin-top:6px}
+.ev a em{border-radius:var(--r-pill);padding:6px 12px;font-weight:700}
+.ev .e1{border-left:0}
+#insights{background:var(--n-50);border-top:0 !important}
+.board{gap:20px}
+.board>div{background:#fff;border-radius:var(--r-card);padding:24px 26px 18px;box-shadow:var(--shadow);min-width:0}
+.board h2{font-size:19px;border-bottom:0;padding-bottom:12px}
+.board h2 a{font-size:13px;font-weight:600;color:var(--navy-500)}
+.list li{border-bottom:1px solid var(--line)}
+.list a{padding:12px 0}
+.list .t{font-size:14px}
+.list .t b{color:var(--navy-500);font-weight:700}
+.list .d{font-size:12px}
+.rk td{padding:10px 0;font-size:14px}
+.rk .n{color:var(--navy-500);font-weight:800}
+.faqcs{gap:28px}
+details{border:0;border-radius:var(--r-el);background:var(--n-50);margin-bottom:10px;overflow:hidden}
+summary{padding:16px 20px;font-size:15px;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+details .a{padding:0 20px 18px;font-size:14px;color:var(--fg-2);line-height:1.75}
+.cs{border-radius:var(--r-card);box-shadow:var(--shadow);border:0;padding:28px}
+.cs .big{color:var(--navy-500)}
+.side-col{display:grid;gap:20px;align-content:start}
+.cs.nt2 .list a{padding:10px 0}
+.cs.nt2 .list .t{font-size:14px}
+.cs.nt2 h3{margin-bottom:6px}
+.ab-item .ico{background:var(--navy-50);box-shadow:none}
+.ab-item .ico svg{width:56%;height:56%}
+.ab-inv{border-radius:var(--r-card)}
+.ab-inv .bt{border-radius:var(--r-pill)}
+.apply form{border:0;border-radius:var(--r-card);box-shadow:var(--shadow);padding:30px}
+.apply input,.apply textarea,.apply select{border:1px solid transparent;background:var(--n-50);border-radius:var(--r-el);height:48px;padding:0 16px;font-size:15px;transition:var(--ease)}
+.apply textarea{height:auto;padding:14px 16px}
+.apply input:focus,.apply textarea:focus,.apply select:focus{background:#fff;border-color:var(--navy-500);box-shadow:0 0 0 3px var(--navy-100);outline:0}
+.apply ol li::before{background:var(--navy-500)}
+footer{background:#fff;border-top:1px solid var(--line);padding-top:40px}
+footer select{border-radius:var(--r-pill);height:40px;padding:0 16px;background:var(--n-50);border:0}
+footer .sns a{width:36px;height:36px;background:var(--n-50);border:0}
+.fl-k{width:auto;height:56px;padding:0 22px 0 18px;border-radius:var(--r-pill);background:var(--navy-500);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;text-align:left;line-height:1}
+.fl-k svg{width:22px;height:22px;margin:0}
+.fl-k span{display:inline}
+.totop{border-radius:50%;box-shadow:var(--shadow);border:0;bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+@media (max-width:720px){.sec{padding-block:44px}.sec-h h2{font-size:22px}.hd .wrap{height:64px}.logo .mk{width:30px;height:30px}.logo .wm{height:25px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="i-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2c-.3-1-1-1.8-2-2C19.2 4.7 12 4.7 12 4.7s-7.2 0-9 .5c-1 .3-1.8 1-2 2C.5 9 .5 12 .5 12s0 3 .5 4.8c.3 1 1 1.8 2 2 1.8.5 9 .5 9 .5s7.2 0 9-.5c1-.3 1.8-1 2-2 .5-1.8.5-4.8.5-4.8s0-3-.5-4.8zM9.7 15.3V8.7l6 3.3-6 3.3z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-blog" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></symbol>
+</defs></svg>
+
+<div class="util">
+  <div class="wrap">
+    <div class="l">📢 파트너 크리에이터 모집 중 — 첫 클래스 제작비 <b>전액 지원</b></div>
+    <div class="r">
+      <a href="#notice">공지사항</a>
+      <a href="#cs">고객센터</a>
+      <a href="login.html">로그인</a>
+      <a href="#apply">크리에이터 지원</a>
+    </div>
+  </div>
+</div>
+
+<header class="hd">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="웨일베이스 홈"><svg class="mk" viewBox="0 0 64 44" aria-hidden="true"><path d="M8 12V26C8 33 13 36 18 36C23 36 27 33 27 26V22C27 29 31 36 37 36C43 36 46 32 46 26V16" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 17C44 11 39 8 34 9C38 12 42 13 46 17ZM46 17C48 11 53 8 58 9C54 12 50 13 46 17Z" fill="currentColor"/></svg><svg class="wm" viewBox="0 0 122 44" aria-hidden="true"><g transform="translate(0 34) scale(0.014648 -0.014648)"><path d="M485.76 1544C257.28 1544 88.32 1398 90.24 1192C88.32 988 257.28 844 485.76 844C712.3199999999999 844 879.36 988 879.36 1192C879.36 1398 712.3199999999999 1544 485.76 1544Z M485.76 1334C576.0 1334 635.52 1282 635.52 1192C635.52 1104 576.0 1056 485.76 1056C393.59999999999997 1056 334.08 1104 334.08 1192C334.08 1282 393.59999999999997 1334 485.76 1334Z M1610.8799999999999 1644H1349.76V-192H1610.8799999999999Z M1246.08 1618H988.8V472H723.8399999999999V254H988.8V-110H1246.08Z M19.2 760 49.92 528C135.35999999999999 527 240.95999999999998 528 353.28 532V-48H612.48V548C720.9599999999999 558 828.48 572 927.36 592L908.16 804C629.76 762 255.35999999999999 760 19.2 760Z M2209.92 1594C1937.28 1594 1729.9199999999998 1416 1731.84 1170C1729.9199999999998 926 1937.28 750 2209.92 748C2480.64 750 2684.16 926 2686.08 1170C2684.16 1416 2480.64 1594 2209.92 1594Z M2209.92 1360C2330.88 1358 2417.2799999999997 1294 2417.2799999999997 1170C2417.2799999999997 1048 2330.88 980 2209.92 980C2087.04 980 1998.72 1048 1998.72 1170C1998.72 1294 2088.96 1358 2209.92 1360Z M3189.12 1644H2912.64V730H3189.12Z M3189.12 660H1994.8799999999999V440H2912.64V352H2000.6399999999999V-172H3231.3599999999997V52H2269.44V144H3189.12Z M3676.7999999999997 1482H3415.68V236H4126.08V748H4272.0V-114H4533.12V1616H4272.0V982H4126.08V1482H3874.56V1064H3676.7999999999997Z M3676.7999999999997 470V838H3874.56V470Z M4903.679999999999 1644H4638.72V-192H4903.679999999999Z M6514.5599999999995 1644H6236.16V-196H6514.5599999999995Z M5552.639999999999 1518C5280.0 1518 5080.32 1264 5080.32 862C5080.32 454 5280.0 200 5552.639999999999 200C5819.5199999999995 200 6019.2 454 6021.12 862C6019.2 1264 5819.5199999999995 1518 5552.639999999999 1518Z M5552.639999999999 1258C5673.599999999999 1258 5754.24 1124 5754.24 862C5754.24 596 5673.599999999999 462 5552.639999999999 462C5427.84 462 5347.2 596 5349.12 862C5347.2 1124 5427.84 1258 5552.639999999999 1258Z M7639.679999999999 1412V1540H7344.0V1412C7342.08 1160 7148.16 868 6729.599999999999 792L6846.719999999999 554C7159.679999999999 617 7377.599999999999 792 7491.84 1016C7605.12 790 7822.08 616 8136.96 554L8257.92 792C7829.759999999999 866 7637.759999999999 1156 7639.679999999999 1412Z M8307.84 262H6696.96V26H8307.84Z" fill="currentColor"/></g></svg></a>
+    <nav class="gnb" aria-label="주메뉴">
+      <a href="#classes">클래스</a>
+      <a href="#partner">파트너 콘텐츠</a>
+      <a href="#insights">인사이트</a>
+      <a href="#about">소개</a>
+      <a href="#apply" class="hot">크리에이터 모집</a>
+    </nav>
+    <button class="ham" type="button" id="ham" aria-label="메뉴"><svg><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+<div class="mnav" id="mnav">
+  <div class="top"><a class="logo" href="#top" aria-label="웨일베이스 홈"><svg class="mk" viewBox="0 0 64 44" aria-hidden="true"><path d="M8 12V26C8 33 13 36 18 36C23 36 27 33 27 26V22C27 29 31 36 37 36C43 36 46 32 46 26V16" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 17C44 11 39 8 34 9C38 12 42 13 46 17ZM46 17C48 11 53 8 58 9C54 12 50 13 46 17Z" fill="currentColor"/></svg><svg class="wm" viewBox="0 0 122 44" aria-hidden="true"><g transform="translate(0 34) scale(0.014648 -0.014648)"><path d="M485.76 1544C257.28 1544 88.32 1398 90.24 1192C88.32 988 257.28 844 485.76 844C712.3199999999999 844 879.36 988 879.36 1192C879.36 1398 712.3199999999999 1544 485.76 1544Z M485.76 1334C576.0 1334 635.52 1282 635.52 1192C635.52 1104 576.0 1056 485.76 1056C393.59999999999997 1056 334.08 1104 334.08 1192C334.08 1282 393.59999999999997 1334 485.76 1334Z M1610.8799999999999 1644H1349.76V-192H1610.8799999999999Z M1246.08 1618H988.8V472H723.8399999999999V254H988.8V-110H1246.08Z M19.2 760 49.92 528C135.35999999999999 527 240.95999999999998 528 353.28 532V-48H612.48V548C720.9599999999999 558 828.48 572 927.36 592L908.16 804C629.76 762 255.35999999999999 760 19.2 760Z M2209.92 1594C1937.28 1594 1729.9199999999998 1416 1731.84 1170C1729.9199999999998 926 1937.28 750 2209.92 748C2480.64 750 2684.16 926 2686.08 1170C2684.16 1416 2480.64 1594 2209.92 1594Z M2209.92 1360C2330.88 1358 2417.2799999999997 1294 2417.2799999999997 1170C2417.2799999999997 1048 2330.88 980 2209.92 980C2087.04 980 1998.72 1048 1998.72 1170C1998.72 1294 2088.96 1358 2209.92 1360Z M3189.12 1644H2912.64V730H3189.12Z M3189.12 660H1994.8799999999999V440H2912.64V352H2000.6399999999999V-172H3231.3599999999997V52H2269.44V144H3189.12Z M3676.7999999999997 1482H3415.68V236H4126.08V748H4272.0V-114H4533.12V1616H4272.0V982H4126.08V1482H3874.56V1064H3676.7999999999997Z M3676.7999999999997 470V838H3874.56V470Z M4903.679999999999 1644H4638.72V-192H4903.679999999999Z M6514.5599999999995 1644H6236.16V-196H6514.5599999999995Z M5552.639999999999 1518C5280.0 1518 5080.32 1264 5080.32 862C5080.32 454 5280.0 200 5552.639999999999 200C5819.5199999999995 200 6019.2 454 6021.12 862C6019.2 1264 5819.5199999999995 1518 5552.639999999999 1518Z M5552.639999999999 1258C5673.599999999999 1258 5754.24 1124 5754.24 862C5754.24 596 5673.599999999999 462 5552.639999999999 462C5427.84 462 5347.2 596 5349.12 862C5347.2 1124 5427.84 1258 5552.639999999999 1258Z M7639.679999999999 1412V1540H7344.0V1412C7342.08 1160 7148.16 868 6729.599999999999 792L6846.719999999999 554C7159.679999999999 617 7377.599999999999 792 7491.84 1016C7605.12 790 7822.08 616 8136.96 554L8257.92 792C7829.759999999999 866 7637.759999999999 1156 7639.679999999999 1412Z M8307.84 262H6696.96V26H8307.84Z" fill="currentColor"/></g></svg></a><button type="button" id="mclose" aria-label="닫기">✕</button></div>
+  <a href="#classes">클래스</a>
+  <a href="#partner">파트너 콘텐츠</a>
+  <a href="#insights">인사이트</a>
+  <a href="#about">소개</a>
+  <a href="#apply">크리에이터 모집</a>
+  <a href="#notice" class="sub">공지사항</a>
+  <a href="#cs" class="sub">고객센터</a>
+</div>
+
+
+<main id="top">
+
+<section class="bnr">
+  <div class="wrap">
+    <div class="box">
+      <div class="tr" id="tr">
+        <a class="sl b1" href="#apply"><div class="in"><span class="k">강사의 디지털 전환 파트너</span><h2>강의는 강사가,<br>제작과 유통은 웨일베이스가</h2><p>기획·촬영·편집·자막·상세페이지·정산까지 웨일베이스가 맡습니다. 강사는 강의에만 집중하고, 완성된 디지털 강의는 멤버십으로 유통됩니다.</p><span class="bt">제작 지원 신청</span></div></a>
+        <a class="sl b2" href="pricing.html"><div class="in"><span class="k">웨일베이스 멤버십</span><h2>마스터 7인의 강의 338개를<br>하나의 멤버십으로</h2><p>로그인 후 바로 수강. 월간·연간 중 결제 주기만 고르면 됩니다.</p><span class="bt">멤버십 알아보기</span></div></a>
+        <a class="sl b3" href="classes.html"><div class="in"><span class="k">마스터 7인</span><h2>전인구 · 박곰희 · 수페<br>한 곳에서 수강합니다</h2><p>채널마다 흩어진 강의를 웨일베이스가 한 곳에 모아 제작·정리합니다.</p><span class="bt">파트너 콘텐츠 보기</span></div></a>
+        <a class="sl b4" href="#insights"><div class="in"><span class="k">미국주식, 어제 뭐 샀지?</span><h2>국내 투자자 순매수<br>미국주식 TOP 5</h2><p>한국예탁결제원 데이터로 확인하는 서학개미의 선택.</p><span class="bt">랭킹 보기</span></div></a>
+      </div>
+      <div class="pg"><button type="button" id="bp" aria-label="이전"><svg><use href="#i-l"/></svg></button><span class="n" id="bn">1 / 4</span><button type="button" id="bx" aria-label="다음"><svg><use href="#i-r"/></svg></button></div>
+    </div>
+  </div>
+</section>
+
+
+<section class="stats" aria-label="웨일베이스 현황">
+  <div class="wrap">
+    <div><b>338<small>개</small></b><span>등록 강의</span></div>
+    <div><b>5,213<small>만</small></b><span>강의 누적 조회수</span></div>
+    <div><b>52,041<small>개</small></b><span>수강생 댓글·후기</span></div>
+    <div><b>846<small>만</small></b><span>마스터 채널 구독자 합계</span></div>
+    <div class="src">2026.10.15 기준</div>
+  </div>
+</section>
+
+<section class="sec" id="classes">
+  <div class="wrap">
+    <div class="sec-h"><h2 id="clTitle">투자 공부, 여기서 시작하세요<small>마스터 7인의 대표 강의</small></h2><a class="more" href="classes.html">전체 강의 338개 보기 ›</a></div>
+    <div class="grid" id="grid">
+      <a class="pd" href="class/Ri_4ie6CG-Q.html" data-cat="us basic" data-kw="전인구경제연구소 마삼룰 나스닥 -3% 급락 대응 매수 규칙">
+        <div class="th img"><img src="img/yt/Ri_4ie6CG-Q.jpg" alt="마삼룰을 알아보자 — 나스닥 -3% 급락 대응법" loading="lazy"><span class="dur">9:55</span></div>
+        <div class="bd"><div class="cat"><span>미국주식</span> · <span>왕초보주식투자</span></div><h3>마삼룰을 알아보자 — 나스닥 -3% 급락 대응법</h3><div class="ms"><span class="ch">전인구경제연구소</span></div><div class="ms">단편 · 조회수 13만 · 9:55</div><div class="meta"><span class="tag line">단편</span></div></div>
+      </a>
+      <a class="pd" href="class/FuPcMdw-Pbc.html" data-cat="us basic" data-kw="구채희 미국주식 왕초보 시리즈 구채희 미국주식 왕초보 수수료 증권사">
+        <div class="th img"><img src="img/yt/FuPcMdw-Pbc.jpg" alt="미국주식 왕초보를 위한 기초개념 + 증권사별 수수료 비교 #1편" loading="lazy"><span class="dur">10:36</span></div>
+        <div class="bd"><div class="cat"><span>미국주식</span> · <span>미국주식 왕초보 시리즈</span></div><h3>미국주식 왕초보를 위한 기초개념 + 증권사별 수수료 비교 #1편</h3><div class="ms"><span class="ch">구채희</span></div><div class="ms">#1편 · 조회수 56만 · 10:36</div><div class="meta"><span class="tag line">시리즈</span></div></div>
+      </a>
+      <a class="pd" href="class/koW7Tkna5rc.html" data-cat="us etf" data-kw="수페TV 미국 투자 국내 해외 ETF S&amp;P500 나스닥 환전">
+        <div class="th img"><img src="img/yt/koW7Tkna5rc.jpg" alt="누구나 쉽게 미국에 투자하는 방법 (국내/해외 ETF)" loading="lazy"><span class="dur">16:46</span></div>
+        <div class="bd"><div class="cat"><span>미국주식</span> · <span>단편 강의</span></div><h3>누구나 쉽게 미국에 투자하는 방법 (국내/해외 ETF)</h3><div class="ms"><span class="ch">수페TV</span></div><div class="ms">단편 · 조회수 53만 · 16:46</div><div class="meta"><span class="tag line">단편</span></div></div>
+      </a>
+      <a class="pd" href="class/574Oi3Jn_KQ.html" data-cat="etf" data-kw="박곰희TV ISA 연금저축 비교 세액공제 비과세 IRP">
+        <div class="th img"><img src="img/yt/574Oi3Jn_KQ.jpg" alt="ISA를 할까? 연금저축을 할까? — ISA·연금저축 비교" loading="lazy"><span class="dur">21:17</span></div>
+        <div class="bd"><div class="cat"><span>ETF·연금</span> · <span>2025 리뉴얼</span></div><h3>ISA를 할까? 연금저축을 할까? — ISA·연금저축 비교</h3><div class="ms"><span class="ch">박곰희TV</span></div><div class="ms">단편 · 조회수 146만 · 21:17</div><div class="meta"><span class="tag line">단편</span></div></div>
+      </a>
+      <a class="pd" href="class/aWBZ3tBuODs.html" data-cat="etf" data-kw="박곰희TV ETF베이직 ver.2026 박곰희 ETF 베이직 기초">
+        <div class="th img"><img src="img/yt/aWBZ3tBuODs.jpg" alt="ETF의 별명은 &#x27;21세기 최고의 금융발명품&#x27;입니다 — ETF베이직 #1" loading="lazy"><span class="dur">15:58</span></div>
+        <div class="bd"><div class="cat"><span>ETF·연금</span> · <span>ETF베이직 ver.2026</span></div><h3>ETF의 별명은 &#x27;21세기 최고의 금융발명품&#x27;입니다 — ETF베이직 #1</h3><div class="ms"><span class="ch">박곰희TV</span></div><div class="ms">#1 · 조회수 8.7만 · 15:58</div><div class="meta"><span class="tag line">시리즈</span></div></div>
+      </a>
+      <a class="pd" href="class/m6pMEM59wxY.html" data-cat="fs" data-kw="삼프로TV 김대욱 재무제표를 읽어라 4부작 재무제표 손익계산서 재무상태표 현금흐름표 매출채권">
+        <div class="th img"><img src="img/yt/m6pMEM59wxY.jpg" alt="재무제표도 모르면서 투자를 한다고?! — 재무제표를 읽어라 1부" loading="lazy"><span class="dur">44:52</span></div>
+        <div class="bd"><div class="cat"><span>재무제표</span> · <span>재무제표를 읽어라 4부작</span></div><h3>재무제표도 모르면서 투자를 한다고?! — 재무제표를 읽어라 1부</h3><div class="ms"><span class="ch">삼프로TV · 김대욱 부장</span></div><div class="ms">1부 · 조회수 102만 · 44:52</div><div class="meta"><span class="tag line">시리즈</span></div></div>
+      </a>
+      <a class="pd" href="class/BfxO1AZ1Xek.html" data-cat="basic kr" data-kw="와이스트릿 이대호 주식투자 기초강의 주린이 탈출 풀버전">
+        <div class="th img"><img src="img/yt/BfxO1AZ1Xek.jpg" alt="2시간만에 주린이 탈출 — 주식투자 기초 완전 마스터" loading="lazy"><span class="dur">1:58:17</span></div>
+        <div class="bd"><div class="cat"><span>주식입문</span> · <span>주식투자 기초강의 풀버전</span></div><h3>2시간만에 주린이 탈출 — 주식투자 기초 완전 마스터</h3><div class="ms"><span class="ch">와이스트릿 · 이대호 대표</span></div><div class="ms">1부 · 조회수 185만 · 1:58:17</div><div class="meta"><span class="tag line">풀강의</span></div></div>
+      </a>
+      <a class="pd" href="class/hO4rb42RPbQ.html" data-cat="kr basic" data-kw="이효석아카데미 차트 기초 캔들 이동평균선 거래량">
+        <div class="th img"><img src="img/yt/hO4rb42RPbQ.jpg" alt="초등학생도 이해하는 차트 기초 15분 정리" loading="lazy"><span class="dur">17:48</span></div>
+        <div class="bd"><div class="cat"><span>국내주식</span> · <span>차트 기초</span></div><h3>초등학생도 이해하는 차트 기초 15분 정리</h3><div class="ms"><span class="ch">이효석아카데미</span></div><div class="ms">단편 · 조회수 119만 · 17:48</div><div class="meta"><span class="tag line">단편</span></div></div>
+      </a>
+    </div>
+    <div class="empty" id="empty" hidden>검색 결과가 없습니다. 다른 키워드로 검색해 보세요.</div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="ev">
+      <a class="e1" href="pricing.html"><div><b>연간 멤버십 28% 절약</b><span>월 20,750원 · 전체 강의 무제한</span></div><em>멤버십</em></a>
+      <a class="e2" href="#apply"><div><b>첫 클래스 제작비 전액 지원</b><span>촬영·편집·자막·상세페이지 · 2026년 파트너 마스터 한정</span></div><em>모집 중</em></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="partner" style="padding-top:0;--cols:3">
+  <div class="wrap">
+    <div class="sec-h"><h2>파트너<small>함께하는 채널과 플랫폼</small></h2></div>
+    <div class="grid">
+      <a class="pd" href="https://www.youtube.com/@moneydo" target="_blank" rel="noopener">
+        <div class="th av" style="background:var(--navy-900)"><img src="img/partner/moneydo.jpg" alt="전인구경제연구소" loading="lazy"></div>
+      </a>
+      <a class="pd" href="https://class101.net" target="_blank" rel="noopener">
+        <div class="th cv" style="background:var(--n-100)"><img src="img/partner/class101.png" alt="클래스101" loading="lazy"></div>
+      </a>
+      <a class="pd" href="https://www.inflearn.com" target="_blank" rel="noopener">
+        <div class="th cv txt" style="color:#1DC078" aria-label="인프런">inflearn</div>
+      </a>
+      <a class="pd" href="https://fastcampus.co.kr" target="_blank" rel="noopener">
+        <div class="th cv txt" style="color:#E8344E;font-weight:800" aria-label="패스트캠퍼스">fastcampus</div>
+      </a>
+      <a class="pd" href="https://taling.me" target="_blank" rel="noopener">
+        <div class="th cv full"><img src="img/partner/taling.png" alt="탈잉" loading="lazy"></div>
+      </a>
+      <a class="pd" href="https://www.classu.co.kr" target="_blank" rel="noopener">
+        <div class="th cv" style="background:var(--n-100)"><img src="img/partner/classu.png" alt="클래스유" loading="lazy"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="insights" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="board">
+      <div>
+        <h2><span>인사이트</span><a href="https://search.naver.com/search.naver?where=news&query=%EC%84%9C%ED%95%99%EA%B0%9C%EB%AF%B8+%EB%AF%B8%EA%B5%AD%EC%A3%BC%EC%8B%9D" target="_blank" rel="noopener">뉴스 더보기 ↗</a></h2>
+        <ul class="list">
+          <li><a href="https://www.etoday.co.kr/news/view/2636302" target="_blank" rel="noopener"><span class="t"><b>이투데이</b>“국장은 틀렸어”…서학개미, 10월 들어 美주식 4조원 순매수</span><span class="d">2026.10.15</span></a></li>
+          <li><a href="https://biz.sbs.co.kr/article/20000339261" target="_blank" rel="noopener"><span class="t"><b>SBS Biz</b>'1만피 가나? 결국 꿈이었네'…미장으로 유턴한 개미들</span><span class="d">2026.10.12</span></a></li>
+          <li><a href="https://biz.newdaily.co.kr/site/data/html/2026/10/11/2026101100031.html" target="_blank" rel="noopener"><span class="t"><b>뉴데일리</b>국장 떠난 개미들, 국내 주식 5.6조 던지고 美 주식 10.1조 담았다</span><span class="d">2026.10.11</span></a></li>
+          <li><a href="https://m.sedaily.com/article/20098888" target="_blank" rel="noopener"><span class="t"><b>서울경제</b>국장 떠난 서학개미, 美 주식 보유 2000억 달러 넘었다</span><span class="d">2026.10.07</span></a></li>
+          <li><a href="https://www.segye.com/newsView/20261007504913" target="_blank" rel="noopener"><span class="t"><b>세계일보</b>서학 개미, 美 주식 보유액 4개월만에 2000억 달러 재돌파</span><span class="d">2026.10.07</span></a></li>
+          <li><a href="https://biz.sbs.co.kr/article/20000336701" target="_blank" rel="noopener"><span class="t"><b>SBS Biz</b>다시 미장으로…서학개미 미국 주식 보유액 2천억달러 재육박</span><span class="d">2026.09.25</span></a></li>
+          <li><a href="https://www.mt.co.kr/world/2026/09/21/2026092021103719948" target="_blank" rel="noopener"><span class="t"><b>머니투데이</b>"반도체주 급락은 기회" 3배 베팅한 불개미들…이틀 만에 19%↑</span><span class="d">2026.09.21</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2><span>미국주식, 어제 뭐 샀지?</span><a href="https://www.tossinvest.com/screener" target="_blank" rel="noopener">토스증권에서 보기 ↗</a></h2>
+        <table class="rk">
+          <tr><td class="n">1</td><td class="tk"><b>SOXL</b><small>디렉시온 미국 반도체 3배 레버리지 ETF</small></td><td class="a">$651,166,675</td></tr>
+          <tr><td class="n">2</td><td class="tk"><b>KORU</b><small>디렉시온 한국 3배 ETF</small></td><td class="a">$67,022,423</td></tr>
+          <tr><td class="n">3</td><td class="tk"><b>FORGENT</b><small>Forgent Power Solutions</small></td><td class="a">$21,746,072</td></tr>
+          <tr><td class="n">4</td><td class="tk"><b>IONQ</b><small>아이온큐</small></td><td class="a">$17,685,823</td></tr>
+          <tr><td class="n">5</td><td class="tk"><b>TQQQ</b><small>프로셰어즈 QQQ 3배 ETF</small></td><td class="a">$12,626,945</td></tr>
+        </table>
+        <div class="rk-ft">2026.10.13 거래일 순매수 기준 · 출처: 한국예탁결제원 세이브로</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="cs" style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="faqcs">
+      <div>
+        <div class="sec-h"><h2>자주 묻는 질문</h2></div>
+        <details open><summary>강의는 어떻게 수강하나요?</summary><div class="a">웨일베이스 멤버십에 가입하면 마스터 7인의 강의 전체를 로그인 후 바로 수강할 수 있습니다. 월간·연간 중 결제 주기만 고르면 됩니다.</div></details>
+        <details><summary>멤버십에는 무엇이 포함되나요?</summary><div class="a">등록된 강의 전체와 새로 추가되는 강의, 강의별 핵심 정리 노트, 수강생 후기 열람이 포함됩니다. 가격과 혜택은 멤버십 안내 페이지에서 확인하세요.</div></details>
+        <details><summary>환불은 어떻게 하나요?</summary><div class="a">결제 후 7일 이내에 강의를 시청하지 않았다면 전액 환불됩니다. 월간 멤버십은 언제든 해지할 수 있고, 해지해도 결제한 기간까지 이용할 수 있습니다. 자세한 기준은 환불규정 페이지에 있습니다.</div></details>
+        <details><summary>마스터(크리에이터)로 참여하려면 어떻게 하나요?</summary><div class="a">아래 크리에이터 지원 폼으로 채널·저서·운용 경험을 보내주세요. 영업일 기준 2일 내 회신드리며, 30분 미팅 후 포맷·배분율·일정을 합의합니다. 첫 클래스 제작비는 웨일베이스가 부담합니다.</div></details>
+        <details><summary>웨일베이스가 종목 추천이나 리딩방을 운영하나요?</summary><div class="a">운영하지 않습니다. 웨일베이스와 마스터는 개별 종목 매수·매도 지시, 유료 리딩방, 수익 보장 광고를 하지 않습니다. 웨일베이스 명의의 리딩방 권유를 받으셨다면 사칭이니 고객센터로 알려주세요.</div></details>
+        <details><summary>수익 배분과 정산은 어떻게 되나요?</summary><div class="a">플랫폼 수수료를 제외한 순매출을 마스터와 웨일베이스가 계약서에 정한 비율로 나눕니다. 매월 플랫폼별 판매 내역 리포트와 함께 정산하며, 최소 판매량 조건과 기존 채널 독점 요구가 없습니다.</div></details>
+      </div>
+      <div class="side-col">
+      <div class="cs">
+        <h3>고객센터</h3>
+        <div class="big">hello@whalebase.io</div>
+        <dl>
+          <dt>운영시간</dt><dd>평일 10:00 – 18:00 (점심 12:30 – 13:30)</dd>
+          <dt>휴무</dt><dd>주말 · 공휴일</dd>
+          <dt>답변</dt><dd>영업일 기준 2일 이내</dd>
+        </dl>
+        <div class="bts"><a class="bt pri" href="#apply">문의 양식 작성</a></div>
+      </div>
+      <div class="cs nt2" id="notice">
+        <h3>공지사항</h3>
+        <ul class="list"><li><a href="#apply"><span class="t">2026 하반기 파트너 마스터 모집 · 제작비 지원 안내</span><span class="d">2026.10.14</span></a></li><li><a href="#cs"><span class="t">마스터 사칭 리딩방·유료 채팅방 주의 안내</span><span class="d">2026.10.14</span></a></li><li><a href="#cs"><span class="t">결제·환불 정책 안내 (파트너 플랫폼 결제 기준)</span><span class="d">2026.10.14</span></a></li></ul>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec about" id="about">
+  <div class="wrap">
+    <div class="ab-head"><div class="k">강사의 디지털 전환을 돕는 곳</div><h2>실전 투자 클래스 플랫폼 웨일베이스</h2></div>
+    <div class="ab-list">
+      <div class="ab-item"><div class="ico"><svg viewBox="0 0 56 56" fill="none" stroke="var(--navy-700)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14h16a6 6 0 0 1 6 6v24a4 4 0 0 0-4-4H10z"/><path d="M46 14H30a6 6 0 0 0-6 6v24a4 4 0 0 1 4-4h18z"/><circle cx="40" cy="12" r="6" fill="var(--coral-500)" stroke="none"/><path d="M38 12h4M40 10v4" stroke="#fff" stroke-width="1.6"/></svg></div><div><h3>돈(투자)은 반드시<br>배워야 하는 과목입니다.</h3><p>국내 투자자의 미국주식 보관액은 268조원을 넘었습니다. 돈이 돈을 벌게 하는 방법은 자본주의를 사는 우리에게 선택이 아니라 필수 과목입니다. 그러나 학교에서도, 회사에서도 투자를 체계적으로 배운 사람은 거의 없습니다. 대부분은 계좌를 먼저 열고, 공부는 손실을 본 뒤에 시작합니다.</p></div></div>
+      <div class="ab-item"><div class="ico"><svg viewBox="0 0 56 56" fill="none" stroke="var(--navy-700)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8l16 6v12c0 10-7 17-16 21-9-4-16-11-16-21V14z"/><path d="M20 28l6 6 11-12" stroke="var(--coral-500)" stroke-width="3"/></svg></div><div><h3>믿을 수 있고 살아있는<br>교육이 필요합니다.</h3><p>유튜브와 커뮤니티에는 투자 콘텐츠가 넘쳐납니다. 그러나 현장 경험 없이 단편적 지식만으로 만든 콘텐츠가 많아 신뢰하기 어렵고, 정보가 산발적이라 무엇부터 공부해야 하는지 알기 어렵습니다. 종목 리딩과 수익 보장 광고가 그 틈을 파고듭니다.</p></div></div>
+      <div class="ab-item"><div class="ico"><svg viewBox="0 0 56 56" fill="none" stroke="var(--navy-700)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="17" r="7"/><path d="M14 44c0-8 6-13 14-13s14 5 14 13"/><path d="M8 20l6-4M48 20l-6-4M10 30h4M46 30h-4" stroke="var(--coral-500)"/></svg></div><div><h3>최전선에서 오랫동안 일한<br>최고의 전문가에게 배워야 합니다.</h3><p>웨일베이스는 저서, 채널, 운용 경험으로 검증된 전문가만 <b>마스터</b>로 모십니다. 이런 분들은 바쁜 현업 때문에 강의를 꺼립니다. 그래서 기획, 촬영, 편집, 자막, 상세페이지, 유통, 정산을 웨일베이스가 모두 맡고, 마스터는 촬영 한 번에 강의에만 집중합니다.</p></div></div>
+      <div class="ab-item"><div class="ico"><svg viewBox="0 0 56 56" fill="none" stroke="var(--navy-700)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44V20l20-10 20 10v24"/><path d="M22 44V30h12v14"/><path d="M8 44h40"/><circle cx="28" cy="22" r="2.5" fill="var(--coral-500)" stroke="none"/></svg></div><div><h3>투자자가 이미 있는 곳에서 만나는 플랫폼</h3><p>마스터의 강의는 웨일베이스 멤버십 한 곳에서 수강합니다. 처음 배우는 분은 1강부터 개념을 차례로, 경험자는 재무제표·연금·배당 같은 깊이 있는 과정으로 이어집니다.</p></div></div>
+    </div>
+    <div class="ab-inv"><div class="k">실전 투자 클래스 플랫폼 웨일베이스에</div><h3>여러분을 초대합니다</h3><div class="bts"><a class="bt" href="#classes">1강부터 시작하기</a><a class="bt cor" href="#apply">마스터로 참여하기</a></div></div>
+  </div>
+</section>
+
+<section class="sec" id="apply">
+  <div class="wrap">
+    <div class="apply">
+      <div>
+        <h2>크리에이터(마스터) 지원 절차</h2>
+        <ol>
+          <li><div>지원서 제출<span>아래 폼으로 채널·저서·운용 경험을 보내주세요.</span></div></li>
+          <li><div>30분 미팅<span>영업일 기준 2일 내 회신. 포맷(VOD/라이브), 배분율, 일정을 합의합니다.</span></div></li>
+          <li><div>촬영 1회<span>스튜디오 또는 출장 촬영. 편집·자막·썸네일·상세페이지는 웨일베이스가 제작합니다.</span></div></li>
+          <li><div>오픈 및 월 정산<span>멤버십에 강의가 오픈되면 매월 수강 리포트와 함께 정산합니다.</span></div></li>
+        </ol>
+      </div>
+      <form id="form" novalidate>
+        <h3>문의 · 지원</h3>
+        <label><span>문의 유형</span>
+          <select id="f-type" name="type">
+            <option value="creator">크리에이터(마스터) 지원</option>
+            <option value="member">멤버십 문의</option>
+            <option value="platform">플랫폼 / 출판사 제휴</option>
+            <option value="other">기타 문의</option>
+          </select>
+        </label>
+        <label><span>이름</span><input id="f-name" name="name" type="text" autocomplete="name" required></label>
+        <label><span>이메일</span><input id="f-email" name="email" type="email" autocomplete="email" required></label>
+        <label><span>채널 / 저서 링크 (선택)</span><input id="f-ch" name="channel" type="url" placeholder="https://"></label>
+        <label><span>내용</span><textarea id="f-msg" name="message" required></textarea></label>
+        <label class="chk"><input id="f-agree" name="agree" type="checkbox" required><span>개인정보 수집·이용에 동의합니다. (문의 응대 목적, 처리 후 1년 보관)</span></label>
+        <button class="bt pri" type="submit" style="height:46px">보내기</button>
+        <p class="note">보내기를 누르면 메일 앱이 열리고 내용이 채워집니다.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div class="fl">
+        <a href="#about">회사소개</a><a href="terms.html">이용약관</a><a class="em" href="privacy.html">개인정보처리방침</a><a href="refund.html">환불규정</a><a href="#apply">제휴문의</a><a href="#cs">고객센터</a>
+      </div>
+    </div>
+    <div class="flogo" aria-hidden="true"><svg viewBox="0 0 64 44"><path d="M8 12V26C8 33 13 36 18 36C23 36 27 33 27 26V22C27 29 31 36 37 36C43 36 46 32 46 26V16" fill="none" stroke="#969DA8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 17C44 11 39 8 34 9C38 12 42 13 46 17ZM46 17C48 11 53 8 58 9C54 12 50 13 46 17Z" fill="#969DA8"/></svg><b>웨일베이스</b></div>
+    <div class="biz">
+      <div><span>상호: 웨일베이스(Whalebase)</span><span>대표: 김유민</span><span>개인정보관리책임자: 민태성</span></div>
+      <div><span>사업자등록번호: 110-458-558696</span><span>통신판매업신고: (준비 중)</span><span>주소: 서울특별시 강남구 역삼동 681-35</span></div>
+      <div><span>이메일: hello@whalebase.io</span><span>호스팅 제공자: Cloudflare, Inc.</span></div>
+      <div>멤버십 결제·환불은 이용약관과 환불규정을 따릅니다. 웨일베이스와 마스터는 투자 권유 및 개별 종목 리딩을 하지 않으며, 모든 투자 판단과 책임은 투자자 본인에게 있습니다.</div>
+    </div>
+    <div class="cp">Copyright © 2026 Whalebase. All rights reserved.</div>
+  </div>
+</footer>
+
+<a class="totop" href="#top" aria-label="맨 위로">TOP</a>
+
+<script>
+
+/* mobile nav */
+const mnav=document.getElementById('mnav');
+document.getElementById('ham').addEventListener('click',()=>{mnav.classList.add('open');document.body.style.overflow='hidden';});
+const closeM=()=>{mnav.classList.remove('open');document.body.style.overflow='';};
+document.getElementById('mclose').addEventListener('click',closeM);
+mnav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeM));
+
+/* banner */
+(function(){
+  const tr=document.getElementById('tr'),n=tr.children.length,lab=document.getElementById('bn');let i=0,t;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const go=k=>{i=(k+n)%n;tr.scrollTo({left:tr.clientWidth*i,behavior:reduce?'auto':'smooth'});lab.textContent=`${i+1} / ${n}`;};
+  const auto=()=>{clearInterval(t);if(!reduce)t=setInterval(()=>go(i+1),6000);};
+  document.getElementById('bp').addEventListener('click',()=>{go(i-1);auto();});
+  document.getElementById('bx').addEventListener('click',()=>{go(i+1);auto();});
+  let st;tr.addEventListener('scroll',()=>{clearTimeout(st);st=setTimeout(()=>{const k=Math.round(tr.scrollLeft/tr.clientWidth);if(k!==i){i=k;lab.textContent=`${i+1} / ${n}`;auto();}},80);},{passive:true});
+  tr.addEventListener('mouseenter',()=>clearInterval(t));tr.addEventListener('mouseleave',auto);
+  addEventListener('resize',()=>tr.scrollTo({left:tr.clientWidth*i}));
+  auto();
+})();
+
+
+/* form -> mailto */
+document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();const f=e.target;const MSG={name:'이름을 입력해 주세요.',email:'올바른 이메일 주소를 입력해 주세요. 예: name@example.com',message:'문의 내용을 입력해 주세요.',agree:'개인정보 수집·이용에 동의해 주세요.'};let ok=true;[...f.elements].forEach(el=>{el.setCustomValidity('');if(el.willValidate&&!el.checkValidity()){el.setCustomValidity(MSG[el.name]||'입력 내용을 확인해 주세요.');if(ok){el.reportValidity();ok=false;}}});if(ok){const name=f.name.value.trim(),email=f.email.value.trim(),ch=f.channel.value.trim(),type=f.type.options[f.type.selectedIndex].text,msg=f.message.value.trim();const subject=encodeURIComponent(`[웨일베이스] ${type} - ${name}`);const body=encodeURIComponent(`${msg}\n\n이름: ${name}\n이메일: ${email}${ch?'\n채널/저서: '+ch:''}`);window.location.href=`mailto:hello@whalebase.io?subject=${subject}&body=${body}`;}});
+</script>
+</body>
+</html>
